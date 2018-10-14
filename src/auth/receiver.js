@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
-import { Receiver } from './flow';
+import { OauthReceiver } from 'react-oauth-flow';
 import history from '../history'
+import ENV from '../env';
 
 const TOKEN_ARGS = {
   method: 'POST',
@@ -25,7 +26,10 @@ export default class Receiever extends Component {
  
   render() {
     return (
-      <Receiver
+      <OauthReceiver
+        clientId={ENV.CLIENT_ID}
+        redirectUri={'https://admin.pixelpubgaming.com/clan'}
+        clientSecret={ENV.CLIENT_SECRET}
         onAuthSuccess={this.handleSuccess}
         onAuthError={this.handleError}
         tokenFetchArgs={TOKEN_ARGS}
@@ -45,7 +49,7 @@ export default class Receiever extends Component {
         {error && <p className="error">Error: {error.message}</p>}
       </div>
     )}
-      </Receiver>
+      </OauthReceiver>
     );
   }
 }
