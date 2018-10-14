@@ -2,8 +2,9 @@ import React, { Component } from 'react';
 import { OauthReceiver } from 'react-oauth-flow';
 import history from '../history'
 import ENV from '../env';
+import qs from 'qs'
 
-const CLIENT_AUTH = atob(`${ENV.CLIENT_ID}:${ENV.CLIENT_SECRET}`)
+const CLIENT_AUTH = btoa(`${ENV.CLIENT_ID}:${ENV.CLIENT_SECRET}`)
 const TOKEN_ARGS = {
   method: 'POST',
   headers: {
@@ -26,16 +27,26 @@ export default class Receiever extends Component {
     console.error(error.message);
   };
  
+  tokenFn = (url) => {
+    const urlParts = url.split('?');
+    const base = urlParts[0]
+    const query = urlParts[1];
+    const params = qs.parse(query)
+    const fetchUrl = `${base}?grant_type=authorization_code&code=${params.code}`
+
+    return fetch(fetchUrl, TOKEN_ARGS)
+  }
+
   render() {
     return (
       <OauthReceiver
         tokenUrl={'https://www.bungie.net/platform/app/oauth/token/'}
-        clientId={''}
+        clientId={'007'}
         redirectUri={'https://admin.pixelpubgaming.com/clan'}
-        clientSecret={'ENV.CLIENT_SECRET'}
+        tokenFn={this.tokenFn}
+        clientSecret={'ITSASECRET'}
         onAuthSuccess={this.handleSuccess}
         onAuthError={this.handleError}
-        tokenFetchArgs={TOKEN_ARGS}
         render={({ processing, state, error }) => (
           <div>
             {processing && <p>Authorizing now...</p>}
