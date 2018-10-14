@@ -8,6 +8,7 @@ const CLIENT_AUTH = btoa(`${ENV.CLIENT_ID}:${ENV.CLIENT_SECRET}`)
 const TOKEN_ARGS = {
   method: 'POST',
   headers: {
+    'X-API-KEY': ENV.API_KEY,
     'Content-Type': 'application/x-www-form-urlencoded',
     'Authorization': `Basic ${CLIENT_AUTH}`
   }
@@ -17,7 +18,7 @@ export default class Receiever extends Component {
   handleSuccess = async (accessToken, { response, state }) => {
     console.log('Successfully authorized');
 
-    document.cookie `PXPAUTHCLAN=${JSON.stringify(response)}`
+    document.cookie = `PXPAUTHCLAN=${JSON.stringify(response)}`
 
     history.push('/clan')
   }
@@ -34,7 +35,10 @@ export default class Receiever extends Component {
     const params = qs.parse(query)
     const fetchUrl = `${base}?grant_type=authorization_code&code=${params.code}`
 
-    return fetch(fetchUrl, TOKEN_ARGS)
+    return fetch(fetchUrl, {
+      ...TOKEN_ARGS,
+      body: fetchUrl.split('?').pop()
+    })
   }
 
   render() {
