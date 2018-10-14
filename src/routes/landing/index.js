@@ -21,7 +21,8 @@ class Landing extends React.Component {
             .filter(cookie => cookie.indexOf('PXPAUTH') >= 0)
             .shift()
             .split('=')
-            .pop()
+            .slice(1)
+            .join('=')
 
         if (cookie) {
             this.setState({processing: true})
