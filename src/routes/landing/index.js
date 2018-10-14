@@ -16,7 +16,7 @@ class Landing extends React.Component {
 
     componentWillMount() {
         // before we mount, if we have a pxp auth cookie, let's go verify it
-        const cookie = !document.cookie ? false : document.cookie
+        const cookie = !document.cookie && document.cookie.indexOf('PXPAUTH') < 0 ? false : document.cookie
             .split(';')
             .filter(cookie => cookie.indexOf('PXPAUTH') >= 0)
             .shift()
