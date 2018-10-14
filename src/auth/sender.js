@@ -10,7 +10,7 @@ export default class Sender extends Component {
         clientId={ENV.CLIENT_ID}
         redirectURL={'https://admin.pixelpubgaming.com/success'}
         state={{ from: '/' }}
-        render={({ url }) => <a href={url}>Authorize me Cap'n</a>}
+        component={this.props.component}
       />
     );
   }

@@ -8,14 +8,12 @@
 }
 
 .App-header {
-  background-color: #282c34;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
+  background-image: url('https://www.pixelpubgaming.com/images/ppb-1.jpg') !important;
+  height: 20vh !important;
+  background-size: 900px !important;
+  background-repeat: repeat-x !important;
+  background-position-x: center !important;
+  background-position-y: center !important;
 }
 
 .App-link {

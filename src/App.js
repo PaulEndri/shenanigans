@@ -1,13 +1,14 @@
 import React, { Component } from 'react';
-import Sender from './auth/sender';
-import Receiver from './auth/receiver';
 import history from './history'
 import './App.css';
-import { BrowserRouter as Router, Route } from 'react-router-dom';
+import { Router, Route } from 'react-router-dom';
+import { Container, Segment} from 'semantic-ui-react';
+import Landing from './routes/landing'
+import Success from './routes/success'
 
 const fuck = () => (
   <div>
-    Hey fucker, I got a thing {window.location.search}
+    Hey fucker, I got a thing {document.cookie}
   </div>
 )
 
@@ -15,14 +16,21 @@ class App extends Component {
   componentDidMount() {
     console.log('mounted', this.props)
   }
+
   render() {
     return (
       <Router history={history}>
-        <div className="App">
-          <Route exact path="/" component={Sender} />
-          <Route exact path="/success" component={Receiver} />
-          <Route exact path="/clan" component={fuck} />
-        </div>
+        <Container className="App">
+          <Segment className="App-header" basic />
+
+          <Container>
+            <Route exact path="/" component={Landing} />
+            <Route exact path="/success" component={Success} />
+            <Route exact path="/clan" component={fuck} />
+          </Container>
+
+
+        </Container>
       </Router>
 
     );
