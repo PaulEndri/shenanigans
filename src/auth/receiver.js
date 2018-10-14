@@ -18,7 +18,9 @@ export default class Receiever extends Component {
   handleSuccess = async (accessToken, { response, state }) => {
     console.log('Successfully authorized');
 
-    document.cookie = `PXPAUTHCLAN=${JSON.stringify(response)}`
+    const data = await response.JSON();
+  
+    document.cookie = `PXPAUTHCLAN=${JSON.stringify(data)}`
 
     history.push('/clan')
   }
