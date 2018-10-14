@@ -3,10 +3,12 @@ import { OauthReceiver } from 'react-oauth-flow';
 import history from '../history'
 import ENV from '../env';
 
+const CLIENT_AUTH = atob(`${ENV.CLIENT_ID}:${ENV.CLIENT_SECRET}`)
 const TOKEN_ARGS = {
   method: 'POST',
   headers: {
-    'COntent-Type': 'application/x-www-form-urlencoded'
+    'Content-Type': 'application/x-www-form-urlencoded',
+    'Authorization': `Basic ${CLIENT_AUTH}`
   }
 }
 
@@ -27,9 +29,10 @@ export default class Receiever extends Component {
   render() {
     return (
       <OauthReceiver
-        clientId={ENV.CLIENT_ID}
+        tokenUrl={'https://www.bungie.net/platform/app/oauth/token/'}
+        clientId={''}
         redirectUri={'https://admin.pixelpubgaming.com/clan'}
-        clientSecret={ENV.CLIENT_SECRET}
+        clientSecret={'ENV.CLIENT_SECRET'}
         onAuthSuccess={this.handleSuccess}
         onAuthError={this.handleError}
         tokenFetchArgs={TOKEN_ARGS}
